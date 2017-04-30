@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Bayesian Logistic Regression -- gaoyuan</title>
+        
+        <link rel="stylesheet" href="../../fonts/Serif/cmun-serif.css" />
+        <link rel="stylesheet" href="../../fonts/Serif-Slanted/cmun-serif-slanted.css" />
+
+        <!--BOOTSTRAP-->
+        <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <!--mobile first-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!--removed html from url but still is html-->
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+        <!--font awesome-->
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
+        <!--fonts: allan & cardo-->
+        <link href="http://fonts.googleapis.com/css?family=Droid+Serif" rel="stylesheet" type="text/css">
+
+        <link href="../../css/default.css" rel="stylesheet">
+
+        <link href="../../comments/inlineDisqussions.css" rel="stylesheet">
+
+        <!--Highlight-->
+        <link href="../../highlight/styles/github.css" rel="stylesheet">
+        
+        <!--Favicon-->
+        <link rel="apple-touch-icon" sizes="57x57" href="../../favicon/apple-touch-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="../../favicon/apple-touch-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="../../favicon/apple-touch-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="../../favicon/apple-touch-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="../../favicon/apple-touch-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="../../favicon/apple-touch-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="../../favicon/apple-touch-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="../../favicon/apple-touch-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="../../favicon/apple-touch-icon-180x180.png">
+        <link rel="icon" type="image/png" href="../../favicon/favicon-32x32.png" sizes="32x32">
+        <link rel="icon" type="image/png" href="../../favicon/android-chrome-192x192.png" sizes="192x192">
+        <link rel="icon" type="image/png" href="../../favicon/favicon-96x96.png" sizes="96x96">
+        <link rel="icon" type="image/png" href="../../favicon/favicon-16x16.png" sizes="16x16">
+        <link rel="manifest" href="../../favicon/manifest.json">
+        <link rel="mask-icon" href="../../favicon/safari-pinned-tab.svg" color="#5bbad5">
+        <link rel="shortcut icon" href="../../favicon/favicon.ico">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="msapplication-TileImage" content="/favicon/mstile-144x144.png">
+        <meta name="msapplication-config" content="/favicon/browserconfig.xml">
+        <meta name="theme-color" content="#ffffff">
+
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+         <!-- start Mixpanel --><script type="text/javascript">(function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable time_event track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.union people.track_charge people.clear_charges people.delete_user".split(" ");
+for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src="undefined"!==typeof MIXPANEL_CUSTOM_LIB_URL?MIXPANEL_CUSTOM_LIB_URL:"file:"===e.location.protocol&&"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js".match(/^\/\//)?"https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js":"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f)}})(document,window.mixpanel||[]);
+mixpanel.init("9bdb560cbfa2056a137fef3132c46888");
+mixpanel.track("Page View");</script><!-- end Mixpanel -->
+
+    </head>
+
+    <body>
+        <div id="wrap">
+            
+            <div id="content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8">
+
+                            <h1><a href="../../">高远</a><div id="contact"><a href="http://www.linkedin.com/in/gaoyuanuw" title="LinkedIn"><i class="fa fa-linkedin-square"></i></a> <a href="http://github.com/gaoyuan" title="Github"><i class="fa fa-github-square"></i></a></div></h1>
+                            
+                            <div class="article">
+                                <h1>Bayesian Logistic Regression</h1>
+                                <div class="info">
+    <p style="font-family:CMSS; font-size:120%">Posted on May 23, 2015</p>
+    bayesian machine learning, logistic regression, rejection sampling
+    <!--
+        by gaoyuan
+    -->
+</div>
+</br>
+
+<p>The Bayesian approach to machine learning replaces the sauce of optimization by that of probability. Instead of maximizing the likelihood, it introduces priors to the parameters and calculates the posterior distribution of the parameters after seeing all the data, using Bayes’ rule (of course!). The posterior distributions capture our beliefs about the parameters, and they are definitely more informative than a single optimal set of parameters learned from maximizing the likelihood. However the extra information comes at a price, since inferring about the posterior is often computationally expensive. For carefully chosen priors and likelihood (conjugacy), it is possible to get analytical solution for the posterior, but unfortunately in reality this is rarely the case, even for the simple logistic regression model.</p>
+<p>The logistic regression model is widely used in classification. For simplicity and visualization purposes we will study a simple 2d classification problem, where we assume that the data points can be separated by a line passing through the origin. This is of course a bad assumption in general, but who cares – no model is perfect anyways.</p>
+For logistic regression, we take the probability of a data point <span class="math inline">\((x_i, y_i) \in \mathbb{R}^2\)</span> belonging to class <span class="math inline">\(z_i \in \{0, 1\}\)</span> as
+\begin{equation}
+P(Z = 0 | X = (x_i, y_i), A = a, B = b) = \frac{1}{1 + exp(-ax_i - by_i)},
+\end{equation}
+<p>where <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span> are the parameters in our model. In a Bayesian’s eyes, they are not cold-blooded reptiles (a number) but warm-blooded mammals (random variables). Wait, I love mammals, but what is our prior belief about them, before seeing any training examples? While, I don’t have any, my intuition is just that any line is equally likely to separate the positive and negative training examples. How does that translates to the priors of <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>?</p>
+For that, let’s look at the probability of points belonging to the opposite class
+\begin{equation}
+P(Z = 1 | X = (x_i, y_i), A = a, B = b) = 1 - P(Z = 0 | X = (x_i, y_i), A = a, B = b) = \frac{exp(-ax_i - by_i)}{1 + exp(-ax_i - by_i)}.
+\end{equation}
+If the point <span class="math inline">\((x_i, y_i)\)</span> happens to lie on the decision boundary, we must have
+\begin{equation}
+P(Z = 1 | X = (x_i, y_i), A = a, B = b) = P(Z = 0 | X = (x_i, y_i), A = a, B = b).
+\end{equation}
+This corresponds to the condition
+\begin{equation}
+ax_i + by_i = 0.
+\end{equation}
+<p>If a point <span class="math inline">\((x_i, y_i)\)</span> lies on the decision boundary, it must satisfy the above equation. In other words, the decision boundary is defined by <span class="math inline">\(ax + by = 0\)</span>, a line passing through the origin! Great, now the model perfectly resonates with our initial assumptions. The last dessert to make is to define the priors for <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> such that it reflects our belief that any line is equally likely. This is in fact very tricky. We have to formalize the term <em>equally likely</em>. One way to formalize it is to say that the slope of the line is uniformly distributed in <span class="math inline">\(\mathbb{R}\)</span>. But what is an uniform distribution in <span class="math inline">\(\mathbb{R}\)</span>? The answer is that there is <strong>no</strong> uniform distribution in <span class="math inline">\(\mathbb{R}\)</span>! This weired object is opposite to the <span class="math inline">\(\delta\)</span>-distribution, but unfortunately is not well-defined in any mathematical framework (distribution theory, measure theory) to the best of my knowledge. It can be seen as a limit of an uniform distribution in <span class="math inline">\([-M, M]\)</span> as <span class="math inline">\(M \rightarrow \infty\)</span>, or as the stationary distribution of a Brownian motion as <span class="math inline">\(t \rightarrow \infty\)</span>. OK, I feel that I’m ranting on it too much. Let’s try to formalize it in another way. We can say that the angle formed by the line and the positive x-axis is uniformly distributed in <span class="math inline">\([-\pi/2, \pi/2]\)</span>. This is well defined, and the angle is related to the slope through a nonlinear map <span class="math inline">\(\Theta \mapsto \tan(\Theta)\)</span>. What is corresponding distribution of the slope you might ask? It is the Cauchy distribution. Uniformity in angle is essentially different from uniformity in slope, a phenomena similar to Bertrand paradox. Anyway, we can now at least realize our second formalization by sampling <span class="math inline">\(\Theta\)</span> uniformly in <span class="math inline">\([-\pi/2, \pi/2]\)</span>, and take <span class="math inline">\(A = \sin\Theta\)</span> and <span class="math inline">\(B = \cos\Theta\)</span>. It turns out there is a way to generate Cauchy distribution even when <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are independent. If <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are independent standard normal distributions, their ratio <span class="math inline">\(A/B\)</span> (or equivalently the actual slope <span class="math inline">\(-A/B\)</span>) is Cauchy distributed. Here let’s adopt this approach, because the Gaussian (normal) prior is extremely popular and we’ve proved that it satisfies our prior belief in this case.</p>
+<p>Let’s first draw some samples from the prior and see how they look like. Below is a plot of 50 random lines drawn from our prior:</p>
+<div class="bigcenterimgcontainer">
+<p><img src="img/fig8.png" alt style></p>
+</div>
+<p>Seem pretty uniform, aren’t they? Here is the density of the joint probability density of <span class="math inline">\((A, B)\)</span>:</p>
+<div class="bigcenterimgcontainer">
+<p><img src="img/fig9.png" alt style></p>
+</div>
+<p>Now let’s make some toy training examples :)</p>
+<div class="bigcenterimgcontainer">
+<p><img src="img/fig10.png" alt style></p>
+</div>
+Given the set of training examples <span class="math inline">\(\{(x_1, y_1, z_1), (x_2, y_2, z_2), \ldots, (x_n, y_n, z_n)\}\)</span>, the likelihood is
+\begin{equation}
+P(Z = \mathbf{z} | X = (\mathbf{x}, \mathbf{y}), A = a, B = b) = \prod_{i = 1}^n \frac{exp(z_i(-ax_i - by_i))}{1 + exp(-ax_i - by_i)}.
+\end{equation}
+The posterior distribution is then proportional to the prior times the likelihood:
+\begin{equation}
+P(A, B|X, Z) \propto P(A)P(B)P(Z|X, A, B).
+\end{equation}
+<p>Unfortunately there is no analytical solution for the posterior, because <span class="math inline">\(P(A)\)</span> and <span class="math inline">\(P(B)\)</span> are Gaussians but the likelihood <span class="math inline">\(P(Z|X, A, B)\)</span> is a product of logistic functions. In order to get a feeling what the posterior looks like, let’s calculate <span class="math inline">\(P(A)P(B)P(Z|X, A, B)\)</span> for a square grid of <span class="math inline">\((a, b)\)</span> ranging from -3 to 3, with a step size of 0.1:</p>
+<div class="bigcenterimgcontainer">
+<p><img src="img/fig11.png" alt style></p>
+</div>
+<p>We can see that after seeing the training examples, our beliefs about <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> shifted. The approximate mode, or the point that has the maximum probability in the grid, is (1.6, 0.4). The corresponding (unnormalized) posterior probability is 0.005.</p>
+<p>Now let’s try to sample some lines from the posterior. To do this I first generate a random number <span class="math inline">\(r\)</span> between <span class="math inline">\(0\)</span> and <span class="math inline">\(1\)</span>. Then I sample a point <span class="math inline">\((a, b)\)</span> uniformly in the square <span class="math inline">\([-3, 3] \times [-3, 3]\)</span>, and calculates <span class="math inline">\(P(A=a)P(B=b)P(Z|X, A=a, B=b)\)</span>. If this unnormalized posterior probability is less than <span class="math inline">\(0.005r\)</span>, I will keep it. Otherwise I will reject it. This idea is called rejection sampling, and one can show that the sampled points will follow the posterior distribution. The fact that I’m only sampling <span class="math inline">\((a, b)\)</span> in a small square does not affect the result so much, because I can tell that most densities are included in this region from the previous plot. Below is a plot of running rejection sampling for 1000 iterations. The grey lines are rejected lines and black lines are approved samples. The thick red line corresponds to the mode.</p>
+<div class="bigcenterimgcontainer">
+<p><img src="img/fig12.png" alt style></p>
+</div>
+<p>The number of training examples influences the variance of the posterior. Here we have 7 positive and 7 negative examples, and we can see that we are already pretty confident about our beliefs. If we only have 6 training instances instead (less evidence), the picture would look like this:</p>
+<div class="bigcenterimgcontainer">
+<p><img src="img/fig13.png" alt style></p>
+</div>
+Finally, to make predictions, given a test data point <span class="math inline">\(X^*\)</span>, the Bayesian approach is to average across all possible parameters:
+\begin{equation}
+P(Z^*|X^*, Z, X) = \int P(Z^*|X^*, A, B)P(A, B|X, Z)dAdB.
+\end{equation}
+<p>Again the integral is a monster, but we can approximate it by sampling. For example, I can take the grid points in the <span class="math inline">\([-3, 3] \times [-3, 3]\)</span> square as a rough approximation to the posterior, and make predictions by summing over all those points. For a test point <span class="math inline">\((-1, 0)\)</span>, this will return us a probability of 0.1597, so we are pretty confident that it belongs to the red class. For a test point of <span class="math inline">\((1, 0)\)</span>, the probability is 0.8403, safe to say it is green.</p>
+<p>A quick exercise: what will the learned model predict for the point <span class="math inline">\((0, 0)\)</span>? Does the choice of prior and training examples influence the prediction for <span class="math inline">\((0, 0)\)</span>? Why?</p>
+<p>Code used in this study:</p>
+<div class="sourceCode"><pre class="sourceCode matlab"><code class="sourceCode matlab"><span class="co">% randn('seed', 0);</span>
+<span class="co">% rand('seed', 0);</span>
+
+<span class="co">% prior</span>
+mu = <span class="fl">0</span>;
+sigma = <span class="fl">1</span>;
+
+<span class="co">% draw samples from prior</span>
+box = <span class="fl">3</span>;
+x = -box:<span class="fl">0.1</span>:box;
+for i = <span class="fl">1</span>:<span class="fl">50</span>
+    a = normrnd(mu, sigma);
+    b = normrnd(mu, sigma);
+    plot(x, -a/b * x, <span class="st">'color'</span>, [<span class="fl">0.8</span> <span class="fl">0.8</span> <span class="fl">0.8</span>]);
+    hold on
+end
+axis([-box box -box box]);
+
+<span class="co">% draw prior density</span>
+[X, Y] = meshgrid(normpdf(x, mu, sigma), normpdf(x, mu, sigma));
+pcolor(X.*Y);
+shading(<span class="st">'interp'</span>);
+set(gca, <span class="st">'XTick'</span>, [], <span class="st">'YTick'</span>, []);
+
+<span class="co">% observed data</span>
+pos = [<span class="fl">1</span>, <span class="fl">1</span>; <span class="fl">2</span>, <span class="fl">0</span>; <span class="fl">2</span>, <span class="fl">1</span>; <span class="fl">0</span>, <span class="fl">2</span>; <span class="fl">1</span>, <span class="fl">2</span>; <span class="fl">0</span>, <span class="fl">3</span>; <span class="fl">2</span>, -<span class="fl">1</span>];
+neg = [-<span class="fl">1</span>, <span class="fl">1</span>; -<span class="fl">1</span>, <span class="fl">0</span>; -<span class="fl">1</span>, -<span class="fl">1</span>; -<span class="fl">1</span>, <span class="fl">2</span>; -<span class="fl">2</span>, <span class="fl">0</span>; -<span class="fl">2</span>, <span class="fl">1</span>; -<span class="fl">2</span>, <span class="fl">2</span>];
+scatter(pos(:, <span class="fl">1</span>), pos(:, <span class="fl">2</span>), <span class="st">'o'</span>);
+scatter(neg(:, <span class="fl">1</span>), neg(:, <span class="fl">2</span>), <span class="st">'x'</span>);
+
+<span class="co">% draw posterior density</span>
+prob_mat = zeros(length(x));
+for j = <span class="fl">1</span>:length(x)
+    for k = <span class="fl">1</span>:length(x)
+        a = x(j);
+        b = x(k);
+        prob = normpdf(a, mu, sigma) * normpdf(b, mu, sigma);
+        for i = <span class="fl">1</span>:size(pos, <span class="fl">1</span>)
+            prob = prob * <span class="fl">1</span>/(<span class="fl">1</span> + exp(-a * pos(i, <span class="fl">1</span>) - b * pos(i, <span class="fl">2</span>)));
+        end
+        for i = <span class="fl">1</span>:size(neg, <span class="fl">1</span>)
+            prob = prob * (<span class="fl">1</span> - <span class="fl">1</span>/(<span class="fl">1</span> + exp(-a * neg(i, <span class="fl">1</span>) - b * neg(i, <span class="fl">2</span>))));
+        end
+        prob_mat(j, k) = prob;
+    end
+end
+pcolor(transpose(prob_mat));
+shading(<span class="st">'interp'</span>);
+set(gca, <span class="st">'XTick'</span>, [], <span class="st">'YTick'</span>, []);
+
+<span class="co">% draw samples from posterior by rejection sampling</span>
+for j = <span class="fl">1</span>:<span class="fl">1000</span>
+    a = -<span class="fl">3</span> + rand()*<span class="fl">6</span>;
+    b = -<span class="fl">3</span> + rand()*<span class="fl">6</span>;
+    prob = normpdf(a, mu, sigma) * normpdf(b, mu, sigma);
+    for i = <span class="fl">1</span>:size(pos, <span class="fl">1</span>)
+        prob = prob * <span class="fl">1</span>/(<span class="fl">1</span> + exp(-a * pos(i, <span class="fl">1</span>) - b * pos(i, <span class="fl">2</span>)));
+    end
+    for i = <span class="fl">1</span>:size(neg, <span class="fl">1</span>)
+        prob = prob * (<span class="fl">1</span> - <span class="fl">1</span>/(<span class="fl">1</span> + exp(-a * neg(i, <span class="fl">1</span>) - b * neg(i, <span class="fl">2</span>))));
+    end
+    u = rand();
+    if prob / max(prob_mat(:)) &gt; u
+        <span class="co">% accept</span>
+        plot(x, -a/b * x, <span class="st">'color'</span>, [<span class="fl">0.2</span> <span class="fl">0.2</span> <span class="fl">0.2</span>]);
+    else
+        <span class="co">% reject</span>
+        plot(x, -a/b * x, <span class="st">'color'</span>, [<span class="fl">0.8</span> <span class="fl">0.8</span> <span class="fl">0.8</span>]);
+    end
+    hold on
+end
+axis([-box box -box box]);
+
+<span class="co">% the mean line</span>
+[maxp, I] = max(prob_mat(:));
+[maxj, maxk] = ind2sub(size(prob_mat), I);
+maxa = x(maxj);
+maxb = x(maxk);
+plot(x, -maxa/maxb * x, <span class="st">'color'</span>, [<span class="fl">1</span> <span class="fl">0</span> <span class="fl">0</span>], <span class="st">'LineWidth'</span>, <span class="fl">2</span>);
+hold on
+
+<span class="co">% test data point</span>
+test = [<span class="fl">1</span>, <span class="fl">0</span>];
+norm_prob = prob_mat / sum(prob_mat(:));
+p = <span class="fl">0</span>;
+for j = <span class="fl">1</span>:length(x)
+    for k = <span class="fl">1</span>:length(x)
+        a = x(j);
+        b = x(k);
+        p = p + norm_prob(j, k) * <span class="fl">1</span>/(<span class="fl">1</span> + exp(-a * test(<span class="fl">1</span>) - b * test(<span class="fl">2</span>)));
+    end
+end</code></pre></div>
+
+<div id="disqus_thread"></div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+
+<script src="../../comments/inlineDisqussions.js"></script>
+<script src="../../js/disqus.js"></script>
+
+                            </div>
+                            
+                        </div>
+                        <div class="col-md-4"></div>
+                    </div>
+               </div>
+               
+           </div>
+        
+    <!-- jQuery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+
+    <script src="../../bootstrap/js/bootstrap.min.js"></script>
+
+    <script src="../../highlight/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <script src="../../js/footnotes.js"></script>
+
+    <script src="../../comments/inlineDisqussions.js"></script>
+    
+    <noscript>Enable JavaScript for footnotes, Disqus comments, and other cool stuff.</noscript>
+
+    </body>
+
+</html>
